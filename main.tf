@@ -1,9 +1,9 @@
 terraform {
   cloud {
-    organization = "terraform-cloud-org-testing"
+    organization = "orgforjenkinstests"
 
     workspaces {
-      name = "newworkspace"
+      name = "common"
     }
   }
 }
