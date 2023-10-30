@@ -3,9 +3,9 @@ terraform {
     organization = "orgforjenkinstests"
 
     workspaces {
-      name = "common"
+      name = "newworkspace"
     }
-  }
+  } 
 }
 
 resource "random_pet" "vpc" {}
