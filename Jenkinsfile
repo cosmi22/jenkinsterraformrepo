@@ -21,9 +21,15 @@ pipeline {
 
 stage('Terraform Init') {
             steps {
-                // Provide the Terraform Cloud token for authentication
-                sh "terraform login -token=${env.TERRAFORM_CLOUD_TOKEN}"
-                sh "terraform init"
+                script {
+                    // Create a temporary config file location for Terraform
+                    def tempConfigFile = sh(script: 'mktemp', returnStatus: true).trim()
+                    env.TF_CLI_CONFIG_FILE = tempConfigFile
+
+                    // Provide the Terraform Cloud token for authentication
+                    sh "terraform login -token=${env.TERRAFORM_CLOUD_TOKEN}"
+                    sh "terraform init"
+                }
             }
         }
 
