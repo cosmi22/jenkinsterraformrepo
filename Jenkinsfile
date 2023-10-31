@@ -4,9 +4,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/cosmi22/jenkinsterraformrepo'
+                script {
+            // Use the PAT credential for authentication directly
+                    checkout([$class: 'GitSCM', branches: [[name: 'main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CheckoutOption', timeout: 10, credentialsId: 'github']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cosmi22/jenkinsterraformrepo.git']]])
+                }
             }
         }
+
 
         stage('Terraform Init') {
             steps {
