@@ -13,10 +13,15 @@ pipeline {
 
 
         stage('Terraform Init') {
-            steps {
-                sh 'terraform init'
+            environment {
+        // Replace '/path/to/terraform' with the actual path to Terraform on your Jenkins server
+                TERRAFORM_HOME = 'C:\data\jenkins_home\workspace'
             }
-        }
+            steps {
+                sh "${TERRAFORM_HOME}/terraform init"
+            }
+}
+
 
         stage('Terraform Apply') {
             steps {
