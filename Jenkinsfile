@@ -21,27 +21,18 @@ pipeline {
 
 stage('Terraform Init') {
             steps {
-                script {
-                    // Use the specified Terraform home directory
-                    def tfHome = env.TERRAFORM_HOME
-
-                    // Provide the Terraform Cloud token for authentication
-                    sh "terraform login -token=${env.TERRAFORM_CLOUD_TOKEN}"
-                    sh "${tfHome}/terraform init"
-                }
+                // Provide the Terraform Cloud token for authentication
+                sh "terraform login -token=${env.TERRAFORM_CLOUD_TOKEN}"
+                sh "terraform init"
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                script {
-                    // Use the specified Terraform home directory
-                    def tfHome = env.TERRAFORM_HOME
-
-                    // Execute your Terraform apply command here
-                    sh "${tfHome}/terraform apply -auto-approve"
-                }
+                // Execute your Terraform apply command here
+                sh "terraform apply -auto-approve"
             }
         }
+        }
     }
-}
+
