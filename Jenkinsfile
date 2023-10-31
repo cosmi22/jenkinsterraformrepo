@@ -16,7 +16,7 @@ pipeline {
 
         stage('Terraform Login') {
             steps {
-                sh "terraform login"
+                sh "terraform login -input=false"
             }
         }
 
