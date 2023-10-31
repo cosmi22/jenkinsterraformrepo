@@ -14,10 +14,16 @@ pipeline {
             }
         }
 
+        stage('Terraform Login') {
+            steps {
+                sh "terraform login"
+            }
+        }
+
         stage('Terraform Init') {
             steps {
                 script {
-                    withEnv(["TF_API_TOKEN=${env.TERRAFORM_CLOUD_TOKEN}"]) {
+                    withEnv(["TF_CLI_TOKEN=${env.TERRAFORM_CLOUD_TOKEN}"]) {
                         sh "terraform init"
                     }
                 }
@@ -26,7 +32,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                withEnv(["TF_API_TOKEN=${env.TERRAFORM_CLOUD_TOKEN}"]) {
+                withEnv(["TF_CLI_TOKEN=${env.TERRAFORM_CLOUD_TOKEN}"]) {
                     sh "terraform apply -auto-approve"
                 }
             }
